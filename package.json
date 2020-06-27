@@ -1,0 +1,28 @@
+{
+  "name": "ironconnectappserver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LucyJunior/ironconnectappserver.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LucyJunior/ironconnectappserver/issues"
+  },
+  "homepage": "https://github.com/LucyJunior/ironconnectappserver#readme",
+  "dependencies": {
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.6.0",
+    "mongoose": "^5.9.20",
+    "morgan": "^1.10.0"
+  }
+}
