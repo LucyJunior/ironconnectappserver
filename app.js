@@ -32,10 +32,10 @@ app.get("/", postRoutes.getPosts);
      console.log(`DB connection error: ${err.message}`);
  });
 
-// // bring in routes
- //const postRoutes = require('./routes/post');
- //const authRoutes = require('./routes/auth');
-// const userRoutes = require('./routes/user');
+ // bring in routes
+ const postRoutes = require('./routes/post');
+ const authRoutes = require('./routes/auth');
+ const userRoutes = require('./routes/user');
 // // apiDocs
 // app.get('/api', (req, res) => {
 //     fs.readFile('docs/apiDocs.json', (err, data) => {
@@ -57,12 +57,12 @@ app.get("/", postRoutes.getPosts);
 // app.use(cors());
  app.use('/api', postRoutes);
  app.use('/api', authRoutes);
-// app.use('/api', userRoutes);
-// app.use(function(err, req, res, next) {
-//     if (err.name === 'UnauthorizedError') {
-//         res.status(401).json({ error: 'Unauthorized!' });
-//     }
-// });
+ app.use('/api', userRoutes);
+ app.use(function(err, req, res, next) {
+  if (err.name === 'UnauthorizedError') {
+       res.status(401).json({ error: 'Dude, you cant sorry!' });
+    }
+});
 
  const port = process.env.PORT || 8080;
  app.listen(port, () => {
