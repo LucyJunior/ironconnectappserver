@@ -11,6 +11,8 @@ const postSchema = new mongoose.Schema({
         required: true
     },
     photo: {
+        //nodejs code
+        //image in binary format
         data: Buffer,
         contenType: String
     },
