@@ -1,7 +1,22 @@
-const Post = require('../models/post.model');
+const Post = require('../models/post');
 const formidable = require('formidable');
 const fs = require('fs');
-const { v1: uuidv1 } = require('uuid');
+
+exports.postById = (req, res, next, id) => {
+    Post.findById(id)
+    //user info from the user model
+    .populate("postedBy", "_id name")
+    .exec((err, post) => {
+        if(err || !post) {
+            return res.status($00).json({
+                error:err
+            });
+        }
+        req.post = post
+        next()
+    });
+
+};
 
 
 exports.getPosts = (req, res) => {
@@ -51,7 +66,7 @@ exports.createPost = (req, res, next) => {
     });
 };
 
-expoerts.postsByUser = (req, res) => {
+exports.postsByUser = (req, res) => {
     Post.find({postedBy: req.profile._id})
     //populae because is on a different model and you want a specific info
     .populate("postedBy", "_id name")
@@ -65,4 +80,4 @@ expoerts.postsByUser = (req, res) => {
         res.json(post);
 
     });
-}
+};

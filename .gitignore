@@ -1,5 +1,0 @@
-MONGO_URI=mongodb+srv://ironconnect:ironconnect@cluster0-lkl6q.mongodb.net/<dbname>?retryWrites=true&w=majority
-
-PORT=8080
-
-JWT_SECRET=KHKDLSAFE898898REFERGRGKLKFDIJGRNG
