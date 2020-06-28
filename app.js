@@ -10,7 +10,10 @@
 // const dotenv = require('dotenv');
 // dotenv.config();
 
+//bring in routes
+const postRoutes = require("routes/post");
 
+app.get("/", postRoutes.getPosts);
 
 // // db
 // // mongodb://kaloraat:dhungel8@ds257054.mlab.com:57054/nodeapi
