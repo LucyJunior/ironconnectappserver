@@ -40,6 +40,7 @@ exports.signin = (req, res) => {
             });
         }
         // generate a token with user id and secret
+        //using jwt package, generating a cookie based the user id and the secret in jwt file
         const token = jwt.sign({ _id: user._id, role: user.role }, process.env.JWT_SECRET);
         // persist the token as 't' in cookie with expiry date
         res.cookie('t', token, { expire: new Date() + 9999 });

@@ -52,7 +52,7 @@ app.get("/", postRoutes.getPosts);
  // middleware -
  app.use(morgan('dev'));
  app.use(bodyParser.json());
-// app.use(cookieParser());
+ app.use(cookieParser());
  app.use(expressValidator());
 // app.use(cors());
  app.use('/api', postRoutes);
