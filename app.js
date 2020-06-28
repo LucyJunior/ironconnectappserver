@@ -10,11 +10,12 @@ var cookieParser = require('cookie-parser');
  const dotenv = require('dotenv');
  dotenv.config();
 
-//bring in routes
-const postRoutes = require("./routes/post");
-const authRoutes = require("./routes/auth");
 
-app.get("/", postRoutes.getPosts);
+//  //bring in routes
+// const postRoutes = require("./routes/post");
+// const authRoutes = require("./routes/auth");
+
+// app.get("/", postRoutes.getPosts);
 
 
 // // db
@@ -49,6 +50,7 @@ app.get("/", postRoutes.getPosts);
 //     });
 // });
 
+app.get("/", postRoutes.getPosts);
  // middleware -
  app.use(morgan('dev'));
  app.use(bodyParser.json());
