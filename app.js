@@ -39,7 +39,7 @@ var cookieParser = require('cookie-parser');
         //json parse to pass the data
          const docs = JSON.parse(data);
           res.json(docs);
-    });
+     });
  });
 
 
