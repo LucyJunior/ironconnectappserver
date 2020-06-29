@@ -6,7 +6,8 @@ const morgan = require('morgan');
 var cookieParser = require('cookie-parser');
  const expressValidator = require('express-validator');
  const fs = require('fs');
-// const cors = require('cors');
+ //cors package for security and prevent atackas, cross origin resource sharing
+ const cors = require('cors');
  const dotenv = require('dotenv');
  dotenv.config();
 
@@ -46,6 +47,7 @@ var cookieParser = require('cookie-parser');
                 error: err
              });
         }
+        //json parse to pass the data
          const docs = JSON.parse(data);
          res.json(docs);
      });
@@ -57,7 +59,7 @@ app.get("/", postRoutes.getPosts);
  app.use(bodyParser.json());
  app.use(cookieParser());
  app.use(expressValidator());
-// app.use(cors());
+ app.use(cors());
  app.use('/api', postRoutes);
  app.use('/api', authRoutes);
  app.use('/api', userRoutes);
