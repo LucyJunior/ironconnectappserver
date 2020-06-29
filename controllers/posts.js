@@ -1,6 +1,7 @@
 const Post = require('../models/post');
 const formidable = require('formidable');
 const fs = require('fs');
+const _ = require('lodash');
 
 exports.postById = (req, res, next, id) => {
     Post.findById(id)
@@ -79,5 +80,67 @@ exports.postsByUser = (req, res) => {
         }
         res.json(post);
 
+    });
+};
+
+
+exports.isPoster = (req, res, next) => {
+    let sameUser = req.post && req.auth && req.post.postedBy._id == req.auth._id;
+    let adminUser = req.post && req.auth && req.auth.role === 'admin';
+
+    let isPoster = sameUser || adminUser;
+
+    if (!isPoster) {
+        return res.status(403).json({
+            error: 'User is not authorized'
+        });
+    }
+    next();
+};
+
+exports.updatePost = (req, res, next) => {
+    let form = new formidable.IncomingForm();
+    form.keepExtensions = true;
+    form.parse(req, (err, fields, files) => {
+        if (err) {
+            return res.status(400).json({
+                error: 'Photo could not be uploaded'
+            });
+        }
+        // save post
+        let post = req.post;
+        //first argument source object, second from the request body
+        post = _.extend(post, fields);
+        post.updated = Date.now();
+
+        if (files.photo) {
+            post.photo.data = fs.readFileSync(files.photo.path);
+            post.photo.contentType = files.photo.type;
+        }
+
+        post.save((err, result) => {
+            if (err) {
+                return res.status(400).json({
+                    error: err
+                });
+            }
+            res.json(post);
+        });
+    });
+};
+
+exports.deletePost = (req, res) => {
+    //first we get a post
+    let post = req.post;
+    //remove method
+    post.remove((err, post) => {
+        if (err) {
+            return res.status(400).json({
+                error: err
+            });
+        }
+        res.json({
+            message: 'Post deleted successfully'
+        });
     });
 };

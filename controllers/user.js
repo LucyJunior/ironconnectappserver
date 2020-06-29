@@ -1,4 +1,4 @@
-const _ = require('lodash')
+const _ = require('lodash');
 const User = require("../models/user");
 //const { inRange } = require('lodash');
 
@@ -49,7 +49,7 @@ exports.getUser = (req, res) => {
 
 exports.updateUser = (req, res, next) => {
     let user = req.profile
-    //extend user object, 
+    //extend user object //extend mutes de source object with the lodash library
     user = _.extend(user, req.body)
     //update the user
     user.update = Date.now()
