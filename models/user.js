@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-//const uuidv1 = require("uuid/v1");
+const uuidv1 = require("uuid/v1");
 const crypto = require("crypto");
 const { ObjectId } = mongoose.Schema;
 const Post = require("./post");
@@ -48,8 +48,6 @@ const userSchema = new mongoose.Schema({
 /**
  * Virtual fields are additional fields for a given model.
  * Their values can be set manually or automatically with defined functionality.
- * Keep in mind: virtual properties (password) don’t get persisted in the database.
- * They only exist logically and are not written to the document’s collection.
  */
 
 // virtual field

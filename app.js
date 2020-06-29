@@ -12,13 +12,6 @@ var cookieParser = require('cookie-parser');
  dotenv.config();
 
 
-//  //bring in routes
-// const postRoutes = require("./routes/post");
-// const authRoutes = require("./routes/auth");
-
-// app.get("/", postRoutes.getPosts);
-
-
 
  mongoose
      .connect(process.env.MONGO_URI, {
@@ -45,9 +38,10 @@ var cookieParser = require('cookie-parser');
         }
         //json parse to pass the data
          const docs = JSON.parse(data);
-         res.json(docs);
-     });
+          res.json(docs);
+    });
  });
+
 
  
  // middleware -
