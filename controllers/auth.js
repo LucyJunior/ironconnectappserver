@@ -1,8 +1,5 @@
 //signup/signin/signout
 
-
-
-
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const expressJwt = require('express-jwt');
