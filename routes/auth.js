@@ -8,7 +8,7 @@ const { userSignupValidator, userSigninValidator, passwordResetValidator } = req
 const router = express.Router();
 
 router.post('/signup', userSignupValidator, signup);
-router.post('/signin', /*userSigninValidator*/ signin);
+router.post('/signin', userSigninValidator, signin);
 router.get('/signout', signout);
 
 // password forgot and reset routes
