@@ -35,10 +35,10 @@ const userSchema = new mongoose.Schema({
     },
     following: [{ type: ObjectId, ref: "User" }],
     followers: [{ type: ObjectId, ref: "User" }],
-    resetPasswordLink: {
-        data: String,
-        default: ""
-    },
+    // resetPasswordLink: {
+    //     data: String,
+    //     default: ""
+    // },
     role: {
         type: String,
         default: "subscriber"

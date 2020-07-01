@@ -5,10 +5,10 @@ const {
     updateUser,
     deleteUser,
 //     userPhoto,
-//     addFollowing,
-//     addFollower,
-//     removeFollowing,
-//     removeFollower,
+     addFollowing,
+    addFollower,
+     removeFollowing,
+     removeFollower,
 //     findPeople,
     hasAuthorization
  } = require("../controllers/user");
@@ -17,8 +17,8 @@ const {
 
 const router = express.Router();
 
-// router.put("/user/follow", requireSignin, addFollowing, addFollower);
-// router.put("/user/unfollow", requireSignin, removeFollowing, removeFollower);
+ router.put("/user/follow", requireSignin, addFollowing, addFollower);
+ router.put("/user/unfollow", requireSignin, removeFollowing, removeFollower);
 
 router.get("/users", allUsers);
 router.get("/user/:userId", requireSignin, getUser);
