@@ -50,9 +50,15 @@ var cookieParser = require('cookie-parser');
  app.use(cookieParser());
  app.use(expressValidator());
  app.use(cors());
+ app.use(express.static(path.join(__dirname, 'public')));
  app.use('/api', postRoutes);
  app.use('/api', authRoutes);
  app.use('/api', userRoutes);
+
+ app.use((req, res, next) => {
+    // If no routes match, send them the React HTML.
+    res.sendFile(__dirname + "/public/index.html");
+  });
  app.use(function(err, req, res, next) {
   if (err.name === 'UnauthorizedError') {
        res.status(401).json({ error: 'Dude, you cant sorry!' });
