@@ -7,8 +7,8 @@ exports.userById = (req, res, next, id) => {
 
     User.findById(id)
     //populate followers and following users array
-    .populate('following', '_id name')
-    .populate('followers', '_id name')
+    .populate('following')
+    .populate('followers')
     
     .exec((err, user) => {
 
@@ -109,6 +109,7 @@ exports.addFollowing = (req, res, next) => {
 };
 
 exports.addFollower = (req, res) => {
+    console.log('Adding follower', req.body)
     User.findByIdAndUpdate(req.body.followId, {$push: {followers: req.body.userId}},
         //mongodb will return the updated data
         {new: true},
