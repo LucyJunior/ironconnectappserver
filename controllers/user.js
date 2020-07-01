@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const User = require("../models/user");
-const { isNullOrUndefined } = require('util');
+//const { isNullOrUndefined } = require('util');
 //const { inRange } = require('lodash');
 
 exports.userById = (req, res, next, id) => {
@@ -25,13 +25,17 @@ exports.userById = (req, res, next, id) => {
 };
 
 exports.hasAuthorization = (req, res, next) => {
-    const authorized = req.profile && req.auth && req.profile._id === req.auth._id
+    console.log(req.profile)
+    console.log(req.auth)
+    const authorized = req.profile && req.auth && req.profile._id == req.auth._id
 
     if(!authorized) {
         return res.status(403).json({
             error: "User is not authorized to do this"
         });
     }
+
+    next();
 };
 
 exports.allUsers = (req, res) => {
@@ -139,7 +143,7 @@ exports.removeFollowing = (req, res, next) => {
 };
 
 exports.removeFollower = (req, res) => {
-    User.findByIdAndUpdate(req.body.unfollowId, {$pupullsh: {followers: req.body.userId}},
+    User.findByIdAndUpdate(req.body.unfollowId, {$pull: {followers: req.body.userId}},
         {new: true},
 
         )
