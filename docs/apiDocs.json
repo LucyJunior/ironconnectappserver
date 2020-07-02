@@ -8,6 +8,6 @@
     "/api/posts": "get all posts",
     "/api/post/new/:userId": "create new post",
     "/api/posts/by/:userId": "get posts by user",
-    "/api/post/:postId": "update/delete post",
+    "/api/post/:postId": "update/delete post"
     
 }
