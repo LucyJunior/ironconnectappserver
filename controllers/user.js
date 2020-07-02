@@ -1,5 +1,7 @@
 const _ = require('lodash');
 const User = require("../models/user");
+const formidable = require('formidable');
+const fs = require('fs');
 //const { isNullOrUndefined } = require('util');
 //const { inRange } = require('lodash');
 
@@ -57,24 +59,68 @@ exports.getUser = (req, res) => {
 
 };
 
-exports.updateUser = (req, res, next) => {
-    let user = req.profile
-    //extend user object //extend mutes de source object with the lodash library
-    user = _.extend(user, req.body)
-    //update the user
-    user.update = Date.now()
-    //save user in the database
-    user.save((err) => {
-        if(err) {
-            return res.status(400).json({
-                error: "You are not authorized to perform this action"
-            });
-        }
-    user.hashed_password = undefined;
-    user.salt = undefined;
-    res.json({user});
+// exports.updateUser = (req, res, next) => {
+//     let user = req.profile
+//     //extend user object //extend mutes de source object with the lodash library
+//     user = _.extend(user, req.body)
+//     //update the user
+//     user.update = Date.now()
+//     //save user in the database
+//     user.save((err) => {
+//         if(err) {
+//             return res.status(400).json({
+//                 error: "You are not authorized to perform this action"
+//             });
+//         }
+//     user.hashed_password = undefined;
+//     user.salt = undefined;
+//     res.json({user});
 
-    });
+//     });
+// };
+
+exports.updateUser = (req, res, next) => {
+    let form = new formidable.IncomingForm();
+        form.keepExtensions = true
+        form.parse(req, (err, fields, files) => {
+            if (err) {
+                return res.status(400).json({
+                    error: 'Photo could not be uploaded'
+                });
+            }
+            //save user with updated info
+            let user = req.profile;
+        // console.log("user in update: ", user);
+        user = _.extend(user, fields);
+
+        user.updated = Date.now();
+
+        if (files.photo) {
+            user.photo.data = fs.readFileSync(files.photo.path);
+            user.photo.contentType = files.photo.type;
+        }
+
+        user.save((err, res) => {
+            if (err) {
+                return res.status(400).json({
+                    error: err
+                });
+            }
+            user.hashed_password = undefined;
+            user.salt = undefined;
+            res.json(user);
+
+         } );
+
+        });
+};
+
+exports.userPhoto = (req, res, next) => {
+    if (req.profile.photo.data) {
+        res.set(('Content-Type', req.profile.photo.contentType));
+        return res.send(req.profile.photo.data);
+    }
+    next();
 };
 
 //remove user
